@@ -1,0 +1,241 @@
+name: 🤖 AI Proposal
+description: AI（Claude等）からの変更提案・改善案
+title: "[AI Proposal] "
+labels: ["ai-proposal", "needs-human-review"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🤖 AI提案について
+        
+        このテンプレートは、AI（Claude等）が分析・提案した変更や改善案について、
+        人間によるレビューを求める際に使用します。
+        
+        **⚠️ 重要**: 全てのAI提案は人間による必須レビューが必要です。
+
+  - type: input
+    id: ai-model
+    attributes:
+      label: 🤖 AI モデル
+      description: 提案を生成したAIモデルを記入してください
+      placeholder: 例：Claude 3.5 Sonnet、GPT-4、その他
+    validations:
+      required: true
+
+  - type: textarea
+    id: analysis-summary
+    attributes:
+      label: 📊 AI分析結果の概要
+      description: AIが実施した分析の概要と発見した問題点を記載してください
+      placeholder: |
+        例：
+        現在の個人情報保護方針について、個人情報保護法の観点から分析を実施。
+        以下の問題点を発見：
+        - 利用目的の記載が曖昧（「等」「その他」の多用）
+        - 第三者提供の条件が不明確
+        - 保存期間の設定が一部欠如
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-changes
+    attributes:
+      label: 🔧 提案する変更内容
+      description: AIが提案している具体的な変更内容を詳しく記載してください
+      placeholder: |
+        例：
+        1. 利用目的の具体化
+           - 「サービス向上のため」→「顧客満足度調査、サービス品質改善のための統計分析」
+        2. 第三者提供条件の明確化
+           - 運送業者への情報提供範囲を明記
+        3. 保存期間の設定
+           - 全ての個人情報カテゴリに保存期間を設定
+    validations:
+      required: true
+
+  - type: dropdown
+    id: change-category
+    attributes:
+      label: 🏷️ 変更カテゴリ
+      description: この提案の変更カテゴリを選択してください
+      options:
+        - Legal Compliance（法令遵守）
+        - Document Improvement（文書改善）
+        - Risk Mitigation（リスク軽減）
+        - Process Enhancement（プロセス改善）
+        - Technical Fix（技術的修正）
+        - Quality Improvement（品質向上）
+        - Other（その他）
+    validations:
+      required: true
+
+  - type: dropdown
+    id: legal-impact
+    attributes:
+      label: ⚖️ 法的影響度
+      description: この変更による法的影響のレベルを選択してください
+      options:
+        - Critical（重大な法的リスクの解消）
+        - High（重要な法令適合性の向上）
+        - Medium（軽微な法的改善）
+        - Low（法的影響は軽微）
+        - None（法的影響なし）
+    validations:
+      required: true
+
+  - type: textarea
+    id: legal-basis
+    attributes:
+      label: 📖 法的根拠
+      description: この提案の法的根拠となる法令、ガイドライン、判例等を記載してください
+      placeholder: |
+        例：
+        - 個人情報保護法第18条（利用目的の明示義務）
+        - 個人情報保護委員会「個人情報の保護に関する法律についてのガイドライン」
+        - 犯罪収益移転防止法第4条（本人確認義務）
+    validations:
+      required: false
+
+  - type: textarea
+    id: risk-assessment
+    attributes:
+      label: 🚨 リスク評価
+      description: 現状のリスクと、変更後の期待される改善効果を記載してください
+      placeholder: |
+        例：
+        【現状のリスク】
+        - 個人情報保護法違反による行政処分リスク
+        - 顧客からの損害賠償請求リスク
+        - 信用失墜による事業影響
+        
+        【変更後の改善効果】
+        - 法令適合性の向上
+        - リーガルリスクの軽減
+        - 透明性・信頼性の向上
+    validations:
+      required: true
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: ⏰ 緊急度
+      description: この変更の緊急度を選択してください
+      options:
+        - Critical（即座に対応必要）
+        - High（1週間以内）
+        - Medium（1ヶ月以内）
+        - Low（次回定期更新時）
+        - Planning（計画段階で検討）
+    validations:
+      required: true
+
+  - type: textarea
+    id: affected-documents
+    attributes:
+      label: 📄 影響を受ける文書
+      description: この変更によって影響を受ける契約書類やドキュメントを列挙してください
+      placeholder: |
+        例：
+        - 個人情報保護方針・同意書
+        - バーチャルオフィス利用契約書（個人情報条項）
+        - 郵便物受取・転送サービス利用規約
+        - プライバシーポリシー
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation-plan
+    attributes:
+      label: 📋 実装計画（AI提案）
+      description: AIが提案する実装手順があれば記載してください
+      placeholder: |
+        例：
+        1. フィーチャーブランチ作成
+        2. 対象文書の修正
+        3. 法務チェックリストの更新
+        4. 関連文書の整合性確認
+        5. 専門家レビューの依頼
+        6. プルリクエスト作成
+
+  - type: dropdown
+    id: expert-review-needed
+    attributes:
+      label: 👨‍⚖️ 専門家レビューの必要性
+      description: この変更について専門家レビューが必要かAIの判断を選択してください
+      options:
+        - Required（必須）
+        - Recommended（推奨）
+        - Optional（任意）
+        - Not Needed（不要）
+    validations:
+      required: true
+
+  - type: textarea
+    id: review-points
+    attributes:
+      label: 🔍 レビューポイント
+      description: 人間レビューで特に確認してほしいポイントをAIが提案する場合は記載してください
+      placeholder: |
+        例：
+        - 法的表現の正確性
+        - 実務運用での妥当性
+        - 他の契約書類との整合性
+        - 顧客にとっての理解しやすさ
+        - 将来の法改正への対応可能性
+
+  - type: textarea
+    id: alternative-options
+    attributes:
+      label: 🔄 代替案
+      description: AIが複数の選択肢を提案している場合は、代替案も記載してください
+      placeholder: |
+        例：
+        【案1】全面的な書き直し（推奨）
+        【案2】部分的な修正のみ
+        【案3】段階的な改善（短期・中期・長期）
+
+  - type: textarea
+    id: limitations
+    attributes:
+      label: ⚠️ AI分析の限界・注意事項
+      description: AI分析の限界や、人間の判断が特に重要な部分があれば記載してください
+      placeholder: |
+        例：
+        - 最新の法改正情報は人間による確認が必要
+        - 業界特有の慣行については専門家の判断が必要
+        - 具体的な運用方法は実務担当者との調整が必要
+        - 顧客影響については慎重な検討が必要
+    validations:
+      required: false
+
+  - type: textarea
+    id: data-sources
+    attributes:
+      label: 📚 参考にしたデータ・情報源
+      description: AIが分析で参考にした情報源やデータがあれば記載してください
+      placeholder: |
+        例：
+        - 現在のプロジェクト内文書
+        - 一般的な法令条文
+        - 公開されているガイドライン
+        - 業界のベストプラクティス
+
+  - type: textarea
+    id: success-metrics
+    attributes:
+      label: 📈 成功指標
+      description: この変更が成功したと判断できる指標があれば記載してください
+      placeholder: |
+        例：
+        - 法務チェックリストで高リスク項目が解消
+        - 専門家レビューで承認取得
+        - 顧客からの問い合わせ減少
+        - コンプライアンス評価の向上
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 📝 その他の情報
+      description: その他、レビューに役立つ追加情報があれば記載してください
