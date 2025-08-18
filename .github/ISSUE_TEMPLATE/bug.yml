@@ -1,0 +1,175 @@
+name: 🐛 Bug Report
+description: 不具合・問題の報告
+title: "[Bug] "
+labels: ["bug", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Bug Report について
+        
+        契約書類の不備、法的問題、プロセスの不具合などを報告するために使用します。
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: 🐛 問題の概要
+      description: 発生している問題を簡潔に説明してください
+      placeholder: 例：個人情報保護方針で利用目的の記載が不十分で、法令違反のリスクがある
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: 🏷️ 問題カテゴリ
+      description: 問題の種別を選択してください
+      options:
+        - Legal Issue（法的問題）
+        - Document Error（文書の誤り）
+        - Process Issue（プロセスの問題）
+        - Compliance Risk（コンプライアンスリスク）
+        - Data Issue（データの問題）
+        - Other（その他）
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: 🚨 重要度
+      description: この問題の重要度を選択してください
+      options:
+        - Critical（法的リスクあり・即座に対応必要）
+        - High（重要・早急に対応必要）
+        - Medium（中程度・計画的に対応）
+        - Low（軽微・時間があるときに対応）
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: 📋 現在の状況（問題のある状態）
+      description: 現在どのような問題が発生しているかを詳しく説明してください
+      placeholder: |
+        例：
+        個人情報保護方針・同意書において：
+        - 利用目的が曖昧で「等」「その他」が多用されている
+        - 第三者提供の範囲が不明確
+        - 保存期間の記載がない項目がある
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: ✅ 期待される状態
+      description: どのような状態になれば問題が解決されるかを説明してください
+      placeholder: |
+        例：
+        個人情報保護方針・同意書において：
+        - 利用目的が具体的で明確に記載されている
+        - 第三者提供の範囲と条件が明確
+        - 全ての個人情報について保存期間が設定されている
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: 🔄 再現手順
+      description: この問題を確認するための手順があれば記入してください
+      placeholder: |
+        例：
+        1. 個人情報保護方針・同意書を開く
+        2. 利用目的の項目を確認する
+        3. 「サービス向上のための調査・分析」の記載を確認
+        4. 具体的な内容が不明確であることを確認
+
+  - type: textarea
+    id: affected-areas
+    attributes:
+      label: 📊 影響範囲
+      description: この問題が影響する範囲を記入してください
+      placeholder: |
+        例：
+        - 対象文書：個人情報保護方針・同意書
+        - 関連法令：個人情報保護法
+        - 影響度：全顧客の個人情報取扱いに関わる
+        - リーガルリスク：行政処分の可能性
+
+  - type: textarea
+    id: legal-implications
+    attributes:
+      label: ⚖️ 法的影響・リスク
+      description: この問題による法的リスクがあれば記入してください
+      placeholder: |
+        例：
+        - 個人情報保護法違反の可能性
+        - 個人情報保護委員会からの行政処分リスク
+        - 顧客からの損害賠償請求リスク
+        - 事業停止リスク
+
+  - type: input
+    id: discovered-date
+    attributes:
+      label: 📅 発見日
+      description: この問題を発見した日付を記入してください
+      placeholder: 例：2025-08-18
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 📎 根拠・証拠
+      description: 問題の根拠となる法令、ガイドライン、専門家の指摘などを記入してください
+      placeholder: |
+        例：
+        - 個人情報保護法第18条（利用目的の明示義務）
+        - 個人情報保護委員会ガイドライン
+        - 弁護士からの指摘事項
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: ⏰ 対応期限
+      description: いつまでに対応が必要かを選択してください
+      options:
+        - Immediate（即座）
+        - This Week（今週中）
+        - This Month（今月中）
+        - Next Month（来月中）
+        - Flexible（柔軟）
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: 💡 提案する解決策
+      description: この問題を解決するための案があれば記入してください
+      placeholder: |
+        例：
+        1. 利用目的を具体的に明記する
+        2. 第三者提供の条件を詳細化する
+        3. 保存期間を全項目で設定する
+        4. 専門家によるレビューを実施する
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: 🔧 暫定回避策
+      description: 根本解決までの間の暫定的な対応があれば記入してください
+      placeholder: |
+        例：
+        - 新規契約時は口頭で詳細説明を行う
+        - 重要な個人情報の取扱いは慎重に行う
+        - 専門家への相談を優先的に行う
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 📝 その他の情報
+      description: その他、この問題に関する追加情報があれば記入してください

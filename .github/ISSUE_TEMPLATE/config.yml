@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🆘 緊急事態・法的リスク
+    url: https://github.com/w-pinkietech/virtual-office-document/discussions
+    about: 緊急の法的リスクや重要事項についてはDiscussionsで相談してください
+  - name: 📚 ドキュメント・ガイド
+    url: https://github.com/w-pinkietech/virtual-office-document/blob/develop/CLAUDE.md
+    about: プロジェクトの運用ルールや作業ガイドはCLAUDE.mdを参照してください
+  - name: 💬 質問・相談
+    url: https://github.com/w-pinkietech/virtual-office-document/discussions
+    about: 使い方の質問や相談はDiscussionsをご利用ください
