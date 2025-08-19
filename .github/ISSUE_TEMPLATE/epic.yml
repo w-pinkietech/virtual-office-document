@@ -1,0 +1,115 @@
+name: 📋 Epic
+description: 大きな機能や改善項目を管理するためのEpic
+title: "[Epic] "
+labels: ["epic", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Epic について
+        
+        Epicは複数のStoryやTaskで構成される大きな機能や改善項目です。
+        法的要件の対応、新しい契約書類の追加、システム改善などに使用します。
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 Epic の概要
+      description: このEpicで実現したいことを簡潔に説明してください
+      placeholder: 例：犯罪収益移転防止法への完全対応を実現し、コンプライアンス体制を強化する
+    validations:
+      required: true
+
+  - type: textarea
+    id: business-value
+    attributes:
+      label: 📈 ビジネス価値・目的
+      description: なぜこのEpicが必要なのか、どのような価値をもたらすかを説明してください
+      placeholder: 例：法的リスクの軽減、顧客からの信頼獲得、事業継続性の向上
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: ✅ 完了条件（Definition of Done）
+      description: このEpicが完了したと言えるための条件を列挙してください
+      placeholder: |
+        例：
+        - [ ] 全ての関連契約書類が法令に適合している
+        - [ ] 専門家によるレビューが完了している
+        - [ ] リスク評価で高リスク項目が解消されている
+        - [ ] 運用マニュアルが整備されている
+    validations:
+      required: true
+
+  - type: textarea
+    id: stories
+    attributes:
+      label: 📚 含まれるStory（推定）
+      description: このEpicを構成すると思われるStoryやTaskを列挙してください（後で調整可能）
+      placeholder: |
+        例：
+        - 本人確認プロセスの詳細化
+        - eKYCシステムの導入検討
+        - マネロンガイドラインの適合確認
+        - 関連契約書類の修正
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 🚨 優先度
+      description: このEpicの優先度を選択してください
+      options:
+        - Critical（緊急・法的リスクあり）
+        - High（重要・早期対応が必要）
+        - Medium（中程度・計画的対応）
+        - Low（低・余裕があるときに対応）
+    validations:
+      required: true
+
+  - type: input
+    id: deadline
+    attributes:
+      label: ⏰ 希望完了時期
+      description: いつまでに完了したいかを記入してください
+      placeholder: 例：2025年10月末、次回監査前、法改正施行前
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: ⚠️ リスクと制約
+      description: このEpicを進める上でのリスクや制約があれば記入してください
+      placeholder: |
+        例：
+        - 専門家のスケジュール調整が必要
+        - システム改修にコストがかかる可能性
+        - 法改正により要件が変わる可能性
+
+  - type: dropdown
+    id: epic-type
+    attributes:
+      label: 🏷️ Epic種別
+      description: このEpicの種別を選択してください
+      options:
+        - Legal Compliance（法令遵守）
+        - Document Improvement（書類改善）
+        - Process Enhancement（プロセス改善）
+        - Risk Mitigation（リスク軽減）
+        - System Integration（システム統合）
+        - Other（その他）
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 📎 追加情報・参考資料
+      description: 関連する法令、判例、業界動向、参考URLなどがあれば記入してください
+      placeholder: |
+        例：
+        - 関連法令：犯罪収益移転防止法第4条
+        - 参考ガイドライン：https://www.meti.go.jp/...
+        - 業界事例：他社での対応状況

@@ -1,0 +1,155 @@
+name: 📖 Story
+description: Epicを構成する具体的な作業項目
+title: "[Story] "
+labels: ["story", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Story について
+        
+        StoryはEpicを構成する具体的な作業項目です。
+        実装可能なサイズに分割され、明確な完了条件を持ちます。
+
+  - type: input
+    id: related-epic
+    attributes:
+      label: 🔗 関連Epic
+      description: このStoryが属するEpicの番号を記入してください
+      placeholder: 例：#123
+    validations:
+      required: false
+
+  - type: textarea
+    id: user-story
+    attributes:
+      label: 👤 ユーザーストーリー
+      description: "As a [role], I want [goal] so that [benefit]" の形式で記入してください
+      placeholder: |
+        例：
+        As a バーチャルオフィス事業者
+        I want 本人確認プロセスを標準化したい
+        So that 犯罪収益移転防止法に確実に準拠できる
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 詳細説明
+      description: この作業で何を行うかを具体的に説明してください
+      placeholder: |
+        例：
+        現在の本人確認プロセスを見直し、以下を実装する：
+        - 必要書類のチェックリスト作成
+        - 確認手順の標準化
+        - 記録保存の仕組み整備
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: ✅ 受け入れ条件
+      description: この作業が完了したと言えるための具体的な条件を列挙してください
+      placeholder: |
+        例：
+        - [ ] 本人確認チェックリストが作成されている
+        - [ ] 確認手順書が作成されている
+        - [ ] 記録保存様式が定義されている
+        - [ ] 関連契約書類が更新されている
+        - [ ] テスト実行して問題ないことを確認
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 🚨 優先度
+      description: このStoryの優先度を選択してください
+      options:
+        - Critical（緊急）
+        - High（高）
+        - Medium（中）
+        - Low（低）
+    validations:
+      required: true
+
+  - type: dropdown
+    id: size
+    attributes:
+      label: 📏 見積もりサイズ
+      description: この作業の規模感を選択してください
+      options:
+        - XS（1-2時間）
+        - S（半日）
+        - M（1日）
+        - L（2-3日）
+        - XL（1週間）
+        - XXL（1週間以上・分割検討）
+    validations:
+      required: true
+
+  - type: textarea
+    id: tasks
+    attributes:
+      label: 📋 作業タスク
+      description: この作業を完了するために必要なタスクを列挙してください
+      placeholder: |
+        例：
+        - [ ] 現行の本人確認プロセスを調査
+        - [ ] 法的要件を整理
+        - [ ] チェックリストを作成
+        - [ ] 手順書を作成
+        - [ ] 契約書類を修正
+        - [ ] テスト実行
+    validations:
+      required: true
+
+  - type: dropdown
+    id: story-type
+    attributes:
+      label: 🏷️ Story種別
+      description: このStoryの種別を選択してください
+      options:
+        - Document（文書作成・修正）
+        - Process（プロセス改善）
+        - Review（レビュー・確認）
+        - Research（調査・分析）
+        - Integration（システム統合）
+        - Testing（テスト・検証）
+        - Training（研修・教育）
+        - Other（その他）
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: 🔄 依存関係
+      description: この作業を開始する前に完了が必要な他の作業があれば記入してください
+      placeholder: 例：#456 の完了後に開始可能
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: ⚠️ リスク・注意事項
+      description: この作業を進める上でのリスクや注意事項があれば記入してください
+      placeholder: |
+        例：
+        - 専門家レビューが必要
+        - 既存顧客への影響確認が必要
+        - 法改正により要件が変わる可能性
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 📎 追加情報・参考資料
+      description: 関連する資料やURLなどがあれば記入してください
+      placeholder: |
+        例：
+        - 参考文書：/path/to/document.md
+        - 関連法令：○○法第○条
+        - 参考サイト：https://example.com

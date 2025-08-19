@@ -1,0 +1,185 @@
+name: 📝 Task
+description: その他の作業・タスク
+title: "[Task] "
+labels: ["task", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Task について
+        
+        メンテナンス、調査、研修、ドキュメント更新など、
+        Epic/Storyに含まれない独立した作業に使用します。
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 タスクの説明
+      description: 実施する作業の内容を説明してください
+      placeholder: |
+        例：
+        - 四半期ごとの法改正情報の調査
+        - 契約書類のバックアップ作成
+        - スタッフ向けコンプライアンス研修の実施
+        - 参考資料の整理・更新
+    validations:
+      required: true
+
+  - type: dropdown
+    id: task-type
+    attributes:
+      label: 🏷️ タスク種別
+      description: このタスクの種別を選択してください
+      options:
+        - Maintenance（メンテナンス）
+        - Research（調査・分析）
+        - Documentation（ドキュメント作成・更新）
+        - Training（研修・教育）
+        - Review（定期レビュー）
+        - Setup（環境設定・準備）
+        - Monitoring（監視・確認）
+        - Communication（連絡・調整）
+        - Other（その他）
+    validations:
+      required: true
+
+  - type: textarea
+    id: objectives
+    attributes:
+      label: 🎯 目的・ゴール
+      description: このタスクを実施する目的や達成したいゴールを説明してください
+      placeholder: |
+        例：
+        - 法改正に適切に対応するため最新情報を把握する
+        - データ消失リスクを回避するためバックアップを整備する
+        - スタッフのコンプライアンス意識を向上させる
+    validations:
+      required: true
+
+  - type: textarea
+    id: deliverables
+    attributes:
+      label: 📦 成果物・完了条件
+      description: このタスクが完了した際の成果物や完了条件を具体的に記入してください
+      placeholder: |
+        例：
+        - [ ] 法改正情報調査レポートが作成されている
+        - [ ] バックアップが正常に作成され、復旧テストが完了している
+        - [ ] 研修資料が作成され、全スタッフが受講完了している
+        - [ ] 参考資料フォルダが整理され、インデックスが更新されている
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 🚨 優先度
+      description: このタスクの優先度を選択してください
+      options:
+        - Critical（緊急）
+        - High（高）
+        - Medium（中）
+        - Low（低）
+    validations:
+      required: true
+
+  - type: dropdown
+    id: effort
+    attributes:
+      label: ⏱️ 想定作業時間
+      description: このタスクの想定作業時間を選択してください
+      options:
+        - Quick（30分未満）
+        - Short（1-2時間）
+        - Medium（半日）
+        - Long（1日）
+        - Extended（2-3日）
+        - Large（1週間以上）
+    validations:
+      required: true
+
+  - type: input
+    id: due-date
+    attributes:
+      label: ⏰ 希望完了日
+      description: いつまでに完了したいかを記入してください
+      placeholder: 例：2025-09-15、月末まで、次回監査前
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 📋 作業手順
+      description: このタスクを完了するための具体的な手順を記入してください
+      placeholder: |
+        例：
+        1. [ ] 関連省庁のWebサイトをチェック
+        2. [ ] 業界団体の情報を確認
+        3. [ ] 専門家からの情報を収集
+        4. [ ] 影響度を分析
+        5. [ ] 対応計画を作成
+        6. [ ] レポートを作成
+        7. [ ] 関係者に共有
+
+  - type: textarea
+    id: resources
+    attributes:
+      label: 🔗 必要なリソース・参考資料
+      description: このタスクに必要なリソースや参考にする資料があれば記入してください
+      placeholder: |
+        例：
+        - アクセス権限：○○システム
+        - 必要な資料：前回の調査レポート
+        - 参考URL：https://www.meti.go.jp/...
+        - 連絡先：専門家の連絡先
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: 🔄 実施頻度
+      description: このタスクが定期的なものである場合、頻度を選択してください
+      options:
+        - One-time（一回限り）
+        - Weekly（週次）
+        - Monthly（月次）
+        - Quarterly（四半期）
+        - Semi-annual（半年）
+        - Annual（年次）
+        - Ad-hoc（不定期）
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: 🔄 依存関係
+      description: このタスクを開始する前に完了が必要な他の作業があれば記入してください
+      placeholder: 例：#123 の完了後に開始、専門家との面談後に実施
+
+  - type: textarea
+    id: risks
+    attributes:
+      label: ⚠️ リスク・注意事項
+      description: このタスクを進める上でのリスクや注意事項があれば記入してください
+      placeholder: |
+        例：
+        - 外部の情報に依存するため遅延の可能性
+        - 専門知識が必要なため外部支援が必要かも
+        - 機密情報を扱うため取扱い注意
+
+  - type: textarea
+    id: success-criteria
+    attributes:
+      label: ✅ 成功基準
+      description: このタスクが成功したと言えるための基準を記入してください
+      placeholder: |
+        例：
+        - 必要な情報が全て収集できている
+        - ステークホルダーから承認が得られている
+        - 次のアクションプランが明確になっている
+        - 品質基準を満たしている
+
+  - type: textarea
+    id: additional-notes
+    attributes:
+      label: 📝 その他・備考
+      description: その他、このタスクに関する追加情報があれば記入してください
