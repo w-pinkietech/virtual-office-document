@@ -77,13 +77,66 @@ main (プロダクション)
 
 ### Issue種別と使い分け
 
-| 種別 | 用途 | ラベル | テンプレート |
-|------|------|--------|-------------|
-| **Epic** | 大きな機能・改善項目 | `epic` | epic.yml |
-| **Story** | Epicを構成する具体的作業 | `story` | story.yml |
-| **Bug** | 不具合・法的問題 | `bug` | bug.yml |
-| **Task** | その他の独立した作業 | `task` | task.yml |
-| **AI Proposal** | AI提案・変更案 | `ai-proposal` | ai-proposal.yml |
+| 種別 | 用途 | ラベル | テンプレート | Todo対応 |
+|------|------|--------|-------------|----------|
+| **Epic** | 大きな機能・改善項目 | `epic` | epic-ai-template.md | TodoWriteの全体タスク |
+| **Story** | Epicを構成する具体的作業 | `story` | story-ai-template.md | 個々のTodo項目 |
+| **Bug** | 不具合・法的問題 | `bug` | bug.yml | 緊急Todo項目 |
+| **Task** | その他の独立した作業 | `task` | task.yml | 単発Todo項目 |
+| **AI Proposal** | AI提案・変更案 | `ai-proposal` | 全AIissueに自動付与 | 全AI作業に適用 |
+
+### Epic-Story-Todo階層構造
+
+```
+Epic (GitHub Issue)
+├── 📋 全体タスクの概要・目的
+├── 🎯 完了条件・法的影響度
+│
+├── Story 1 (GitHub Issue) ↔ Todo ID: 1
+│   ├── 📋 具体的作業内容
+│   ├── ✅ 受け入れ条件
+│   └── 🔄 進捗: pending → in_progress → completed
+│
+├── Story 2 (GitHub Issue) ↔ Todo ID: 2
+│   ├── 📋 具体的作業内容
+│   ├── ✅ 受け入れ条件
+│   └── 🔄 進捗: pending → in_progress → completed
+│
+└── Story 3 (GitHub Issue) ↔ Todo ID: 3
+    ├── 📋 具体的作業内容
+    ├── ✅ 受け入れ条件
+    ├── 💬 Task Comments (Sub-todo)
+    │   ├── Sub-task 3.1
+    │   └── Sub-task 3.2
+    └── 🔄 進捗: pending → in_progress → completed
+```
+
+### Todo-Issue同期マッピング
+
+| TodoWrite Level | GitHub Issue Type | 関係性 | 管理方法 |
+|-----------------|-------------------|--------|----------|
+| **全体タスク群** | Epic | 1対1 | TodoWrite実行時に自動Epic作成 |
+| **個別Todo** | Story | 1対1 | Todo毎にStory作成・状態同期 |
+| **Sub-todo** | Story Comment | 1対多 | Story内のタスクコメント |
+
+### AI作業時のIssue階層例
+
+```bash
+# 例: AI作業「契約書の法的コンプライアンス改善」
+TodoWrite -> 
+  Todo 1: 個人情報保護方針の更新
+  Todo 2: 利用規約の消費者契約法適合
+  Todo 3: 郵便物転送規約の信書規制対応
+
+GitHub Issues:
+Epic #123: 契約書の法的コンプライアンス改善
+├── Story #124: 個人情報保護方針の更新 (Todo ID: 1)
+├── Story #125: 利用規約の消費者契約法適合 (Todo ID: 2)  
+└── Story #126: 郵便物転送規約の信書規制対応 (Todo ID: 3)
+
+Branch: ai/epic-123-legal-compliance-improvement
+PR: Epic #123完了 - 契約書法的コンプライアンス改善
+```
 
 ### ラベル体系
 

@@ -127,11 +127,13 @@ ai/documentation-enhancement     # 文書改善
 
 ---
 
-## 🔄 AI作業時の必須プロセス
+## 🔄 AI作業時の必須プロセス（Todo-Issue同期）
 
 ### **重要**: 全てのAI（Claude等）が従うべき必須フロー
 
-#### 1. 事前準備
+#### Phase 1: 計画・同期フェーズ（必須）
+
+##### 1. 事前準備
 ```bash
 # 現在のブランチ確認
 git status
@@ -142,57 +144,170 @@ git checkout develop
 git pull origin develop
 ```
 
-#### 2. AIブランチ作成（必須）
+##### 2. Todo-Issue同期（必須）
 ```bash
-# AI提案専用ブランチの作成
-git checkout -b ai/[変更内容の概要]
+# ステップ1: TodoWriteでタスク一覧を作成
+TodoWrite -> [複数のタスクを定義]
 
-# 例:
-git checkout -b ai/privacy-policy-compliance-update
+# ステップ2: Epic作成（全体タスクの概要）
+gh issue create \
+  --title "Epic: [全体タスクの概要]" \
+  --body "## 概要
+[Epic全体の説明]
+
+## 含まれるStories
+[このEpicで完了予定のTodo一覧]
+
+## 完了条件
+[Epic完了の判定基準]
+
+## 法的影響度
+[Critical/High/Medium/Low]" \
+  --label "epic,ai-proposal" \
+  --assignee "@me"
+
+# ステップ3: 各TodoをStoryとして作成
+for each todo in todolist:
+  gh issue create \
+    --title "Story: [todo.content]" \
+    --body "Epic: #[epic-number]
+Todo ID: [todo.id]
+
+## 作業内容
+[詳細な作業内容]
+
+## 受け入れ条件
+[完了判定基準]" \
+    --label "story,ai-proposal" \
+    --assignee "@me"
 ```
 
-#### 3. 変更実装
+##### 3. Todo-Issue同期ルール
+
+| Todo Status | Issue Status | GitHub Label | 同期アクション |
+|-------------|-------------|--------------|----------------|
+| `pending` | Open | `status:todo` | Issue作成時 |
+| `in_progress` | Open | `status:in-progress` | ラベル追加 |
+| `completed` | Closed | `status:completed` | Issue Close |
+
+```bash
+# 進捗同期の例
+# Todo状態変更時の自動Issue更新
+update_issue_status() {
+  if [ "$todo_status" = "in_progress" ]; then
+    gh issue edit $issue_number --add-label "status:in-progress"
+  elif [ "$todo_status" = "completed" ]; then
+    gh issue close $issue_number --comment "Todo完了により自動クローズ"
+  fi
+}
+```
+
+#### Phase 2: 実装フェーズ
+
+##### 4. AIブランチ作成（必須）
+```bash
+# AI提案専用ブランチの作成（Epic番号を含む）
+git checkout -b ai/epic-[epic-number]-[変更内容の概要]
+
+# 例:
+git checkout -b ai/epic-123-privacy-policy-compliance-update
+```
+
+##### 5. 変更実装と進捗同期
 - **提案された変更を実装**
-- **AI Proposal Issue作成**（ai-proposal.ymlテンプレート使用）
+- **Todo状態変更時にIssue状態も同期更新**
+- **各Story完了時にコメント追加**
 - **詳細な変更記録**の作成
 
-#### 4. GitHubプッシュ（必須）
+##### 6. GitHubプッシュ（Epic/Story連携）
 ```bash
-# 変更をコミット
+# 変更をコミット（Epic/Story参照を含む）
 git add .
 git commit -m "AI提案: [変更内容の説明]
 
-- 具体的な変更内容1
-- 具体的な変更内容2
+Epic: #[epic-number]
+Stories: #[story1], #[story2], #[story3]
+
+- 具体的な変更内容1 (Story #[story1])
+- 具体的な変更内容2 (Story #[story2])
 - 法的根拠・参考情報"
 
 # リモートにプッシュ
-git push -u origin ai/[ブランチ名]
+git push -u origin ai/epic-[epic-number]-[ブランチ名]
 ```
 
-#### 5. 人間への確認促進（必須実行）
+#### Phase 3: 完了・確認フェーズ
+
+##### 7. PR作成（Epic/Story連携）
+```bash
+# Epic/Storyリンク付きPR作成
+gh pr create \
+  --title "AI提案: [Epic名]" \
+  --body "Epic: #[epic-number]
+
+## 完了したStories
+- [x] #[story1] - [Story1名]
+- [x] #[story2] - [Story2名]
+- [ ] #[story3] - [Story3名] (レビュー待ち)
+
+## 変更内容
+[詳細な変更内容]
+
+## Todo完了状況
+- [x] Todo 1: [内容] → Story #[story1]
+- [x] Todo 2: [内容] → Story #[story2]
+- [x] Todo 3: [内容] → Story #[story3]
+
+## 法的影響度
+[Critical/High/Medium/Low]
+
+## 専門家レビュー
+[必要/推奨/不要]"
+```
+
+##### 8. 人間への確認促進（必須実行）
 
 **以下のメッセージを必ず送信**:
 ```
 🤖 AI作業が完了しました。以下をご確認ください：
 
+**Epic**: #[epic-number] - [Epic名]
+**完了したStories**: 
+- #[story1] - [Story1名]
+- #[story2] - [Story2名]
+- #[story3] - [Story3名]
+
 **変更内容**: [具体的な変更内容]
-**ブランチ**: ai/[変更内容]  
+**ブランチ**: ai/epic-[epic-number]-[変更内容]  
 **法的影響度**: [Critical/High/Medium/Low]
 **専門家レビュー**: [必要/推奨/不要]
 
 **GitHubで確認**: 
-- Issue: #[作成したIssue番号]
+- Epic: #[epic-number]
+- Stories: #[story1], #[story2], #[story3]
 - PR: [プルリクエストのリンク]
 
-変更内容をレビューしていただき、問題なければマージの承認をお願いします。
+Epic全体とすべてのStoriesをレビューしていただき、問題なければマージの承認をお願いします。
 修正が必要な場合はお知らせください。
 ```
 
-#### 6. 承認待ち
+##### 9. 承認・完了処理
+```bash
+# 承認後の処理
+# 1. Epic完了時の自動処理
+gh issue close $epic_number --comment "Epic完了: すべてのStoriesが完了しました"
+
+# 2. 関連Storiesの最終確認
+gh issue list --label "epic:$epic_number" --state closed
+
+# 3. 学習記録の作成
+echo "Epic #$epic_number 完了: [学習事項]" >> ai-learning-log.md
+```
+
 - **人間による承認なしには絶対にマージしない**
 - **修正指示があれば対応し、再度確認を促す**
-- **承認後のマージ作業をサポート**
+- **承認後**: Epic全体のClose処理とStory完了確認
+- **学習記録**: 完了したEpic/Storyから学習事項を抽出・記録
 
 ### 適用範囲（全て対象）
 
