@@ -1,0 +1,179 @@
+# ====================
+# 申込者データサンプルファイル
+# ====================
+# 使用方法:
+# 1. このファイルを「applicant_data.yaml」としてコピー
+# 2. 申込者の実際の情報を入力
+# 3. generator.pyで --applicant オプションを指定して実行
+# 
+# 注意: applicant_data.yaml（実データ）はgitignoreに追加されており、
+#       Gitリポジトリには含まれません
+
+# ====================
+# 申込者基本情報
+# ====================
+applicant:
+  # 申込日
+  application_date: "2025年8月26日"
+  
+  # 契約タイプ: individual（個人）/ corporate（法人）
+  contract_type: individual
+  
+  # ====================
+  # 個人情報
+  # ====================
+  personal:
+    # 氏名
+    name:
+      last: "山田"           # 姓
+      first: "太郎"          # 名
+      last_kana: "ヤマダ"     # セイ（カタカナ）
+      first_kana: "タロウ"    # メイ（カタカナ）
+    
+    # 生年月日
+    birth_date: "2000年1月1日"
+    
+    # 連絡先
+    contact:
+      phone: "090-1234-5678"
+      email: "yamada.taro@example.com"
+  
+  # ====================
+  # 住所情報
+  # ====================
+  address:
+    # 現住所（転送先住所として使用）
+    current:
+      postal_code: "123-4567"
+      prefecture: "東京都"
+      city: "渋谷区"
+      street: "渋谷1-2-3"
+      building: "サンプルビル5F"  # 建物名・部屋番号（任意）
+    
+    # 実家・その他の住所（任意）
+    alternative:
+      postal_code: ""
+      prefecture: ""
+      city: ""
+      street: ""
+      building: ""
+  
+  # ====================
+  # 法人情報（法人契約の場合のみ記入）
+  # ====================
+  corporate:
+    # 会社名
+    company_name: "株式会社サンプル"
+    company_name_kana: "カブシキガイシャサンプル"
+    
+    # 法人番号（13桁）
+    registration_number: "1234567890123"
+    
+    # 代表者
+    representative:
+      title: "代表取締役"
+      name: "山田太郎"
+    
+    # 業種・事業内容
+    business_type: "IT・ソフトウェア開発"
+    business_description: "Webアプリケーション開発、システムコンサルティング"
+    
+    # 設立年月日
+    established_date: "2020年4月1日"
+    
+    # 資本金（任意）
+    capital: "1,000,000"
+  
+  # ====================
+  # 契約情報
+  # ====================
+  contract:
+    # 契約開始希望日
+    start_date: "2025年9月1日"
+    
+    # 契約期間（任意）
+    period: "1年間"
+  
+  # ====================
+  # サービス選択
+  # ====================
+  services:
+    # バーチャルオフィスサービス（必須）
+    virtual_office: true
+    
+    # 郵便受け取りサービス
+    mail_receipt: true
+    
+    # 郵便転送サービス
+    mail_forward: false
+    
+    # 追加オプション（任意）
+    options:
+      phone_answering: false    # 電話応対サービス
+      meeting_room: false        # 会議室利用
+  
+  # ====================
+  # 支払い情報
+  # ====================
+  payment:
+    # 支払い方法: bank_transfer（銀行振込）/ direct_debit（口座振替）
+    method: "bank_transfer"
+    
+    # 請求書送付先（メールアドレス）
+    billing_email: "billing@example.com"
+    
+    # 口座振替の場合の銀行情報（口座振替選択時のみ）
+    bank_account:
+      bank_name: ""
+      branch_name: ""
+      account_type: ""  # 普通/当座
+      account_number: ""
+      account_holder: ""
+  
+  # ====================
+  # その他の情報
+  # ====================
+  additional:
+    # 利用目的
+    usage_purpose: "個人事業のビジネス拠点として"
+    
+    # 紹介者（いる場合）
+    referrer: ""
+    
+    # 特記事項・要望
+    notes: ""
+    
+    # マーケティング情報の受け取り
+    marketing_consent: false
+  
+  # ====================
+  # 本人確認書類
+  # ====================
+  identification:
+    # 提出書類の種類
+    document_type: "運転免許証"  # 運転免許証/パスポート/マイナンバーカード等
+    
+    # 書類番号（管理用・任意）
+    document_number: ""
+    
+    # 有効期限
+    expiry_date: "2030年1月1日"
+
+# ====================
+# 内部管理情報（スタッフ記入用）
+# ====================
+internal:
+  # 申込受付者
+  received_by: ""
+  
+  # 受付日時
+  received_at: ""
+  
+  # 審査状況
+  review_status: "pending"  # pending/approved/rejected
+  
+  # 審査コメント
+  review_notes: ""
+  
+  # 顧客ID（システム生成）
+  customer_id: ""
