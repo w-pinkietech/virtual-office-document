@@ -19,6 +19,60 @@
 └── README.md            # このファイル
 ```
 
+## 🔧 環境準備
+
+### Python仮想環境の作成とパッケージインストール
+
+#### 方法1: venvを使用（推奨）
+
+```bash
+# 仮想環境の作成
+cd 10_legal-documents
+python3 -m venv venv
+
+# 仮想環境の有効化
+# Linux/Mac:
+source venv/bin/activate
+# Windows:
+# venv\Scripts\activate
+
+# パッケージのインストール
+pip install -r requirements.txt
+```
+
+#### 方法2: pipenvを使用
+
+```bash
+cd 10_legal-documents
+pipenv install -r requirements.txt
+pipenv shell
+```
+
+#### 方法3: グローバルインストール（非推奨）
+
+```bash
+cd 10_legal-documents
+pip install -r requirements.txt
+```
+
+### 必要なPythonパッケージ
+
+`requirements.txt`に定義されているパッケージ：
+- **PyYAML** (6.0.1) - YAML設定ファイルの読み込み
+- **Jinja2** (3.1.4) - テンプレートエンジン
+
+### 仮想環境の無効化
+
+作業終了後、仮想環境を無効化する場合：
+
+```bash
+# venvの場合
+deactivate
+
+# pipenvの場合
+exit
+```
+
 ## 🚀 使用方法
 
 ### 1. 設定の変更
@@ -133,15 +187,6 @@ ls -la templates/
 python -c "import yaml; yaml.safe_load(open('settings.yaml'))"
 ```
 
-## 📚 必要なPythonパッケージ
-
-- PyYAML
-- Jinja2
-
-インストール方法：
-```bash
-pip install PyYAML Jinja2
-```
 
 ---
 
