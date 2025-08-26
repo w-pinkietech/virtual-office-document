@@ -15,13 +15,22 @@ GitHubでバーチャルオフィスの契約書類を管理するプロジェ�
 
 ```
 virtual-office/
-├── 10_legal-documents/             # 契約書類
-│   ├── current/                    # 現在使用中の書類
+├── 10_legal-documents/             # 契約書類・書類生成システム
+│   ├── current/                    # サンプル書類（変更しない）
 │   │   ├── 会員規約.md
 │   │   ├── バーチャルオフィス申込書.md
 │   │   └── 郵便サービス契約書_法人.md
+│   ├── templates/                  # Jinja2テンプレート
+│   │   ├── application_form.md.j2
+│   │   ├── terms_of_service.md.j2
+│   │   └── postal_contract_corporate.md.j2
+│   ├── outputs/                    # 生成された書類（.gitignore対象）
+│   ├── word/                       # Word形式の書類
 │   ├── reviewed/                   # 承認済み書類
-│   └── templates/                  # テンプレート
+│   ├── generator.py                # 書類生成スクリプト
+│   ├── settings.yaml               # 設定ファイル（.gitignore対象）
+│   ├── applicant_data.yaml         # 申込者データ（.gitignore対象）
+│   └── README.md                   # 詳細ドキュメント
 ├── 20_legal-compliance/            # 法令遵守チェック
 ├── 30_risk-assessment/             # リスク評価
 ├── 40_expert-review/               # 専門家レビュー
@@ -107,12 +116,32 @@ virtual-office/
 - **版の履歴の確認**: 「ファイル → 版の履歴 → 版の履歴を表示」で、誰がいつどこを編集したか確認できます
 - **機密情報の取り扱い**: 個人情報や社外秘情報を含む場合は、適切な共有権限設定と社内ポリシーに従って取り扱ってください
 
-### 契約書類の確認（エンジニアの方向け）
+### 🔧 エンジニアの方向け
+
+#### 設定駆動型書類生成システム
+
+本プロジェクトでは、契約書類を設定ファイル（YAML）から自動生成するシステムを採用しています。
+
+📚 **詳細はこちら**: [10_legal-documents/README.md](10_legal-documents/README.md)
+
+主な機能：
+- **テンプレート駆動**: Jinja2テンプレートによる書類生成
+- **設定の一元管理**: `settings.yaml`で組織情報・料金・条件を管理
+- **申込者データ対応**: 申込者情報を事前入力した書類の生成
+- **複数形式対応**: Markdown、Word形式での出力
+
+#### 契約書類の確認
 ```bash
 ls 10_legal-documents/current/
 ```
 
-### 法令遵守チェック（エンジニアの方向け）
+#### 書類の生成
+```bash
+cd 10_legal-documents
+python generator.py
+```
+
+#### 法令遵守チェック
 ```bash
 ls 20_legal-compliance/
 ```
