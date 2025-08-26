@@ -1,9 +1,9 @@
-# 【マルスカフェ】バーチャルオフィス利用申込書
+# 【{{ org.name }}】バーチャルオフィス利用申込書
 
 ## 注意事項
 
 - 本申込書を記入する前に、必ず利用規約および個人情報保護方針をご確認ください。
-- ウェブサイト: [ウェブサイト]
+- ウェブサイト: {{ org.website }}
 - 本申込書を提出する際には、利用規約および個人情報保護方針の全ての内容に同意いただく必要があります。
 - 本申込書をもって審査を実施いたします。審査結果によっては、ご利用いただけない可能性がありますので予めご了承ください。
 
@@ -13,7 +13,7 @@
 
 ### 申請年月日
 　　　　　　年　　　月　　　日  
-*記入例: 2025年01月01日*
+*記入例: {{ today.year }}年01月01日*
 
 ### 契約タイプ (Contract Type)
 □ 個人利用  
@@ -42,7 +42,7 @@
 
 ### 会社名・団体名 (Company/Organization Name)
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿  
-*記入例: マルスカフェ*
+*記入例: {{ org.name }}*
 
 ### 会社名・団体名（フリガナ）
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿  
@@ -57,7 +57,7 @@
 郵便番号: 〒＿＿＿－＿＿＿＿  
 住所: ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿  
 　　　＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿  
-*記入例: 郵便番号: 726-0005 住所: 広島県府中市府中町123-45*
+*記入例: 郵便番号: {{ org.postal_code }} 住所: {{ org.address }}123-45*
 
 ### 利用目的 (Purpose)
 ※審査に利用いたします。できるだけ詳しくご記入ください。  
@@ -70,11 +70,11 @@
 ## ご利用サービス (Service Plan)
 
 ### バーチャルオフィスサービス (必須)
-☑ バーチャルオフィスサービス: **¥2,200 / month**
+☑ {{ services.virtual_office.name }}: **{{ services.virtual_office.price | format_price }} / {{ services.virtual_office.unit }}**
 
 ### オプション／サービス (Optional/Service)
-□ 郵便受け取りサービス **¥1,100 / month**  
-□ 郵便転送サービス **¥3,300 / month**
+□ {{ services.mail_receipt.name }} **{{ services.mail_receipt.price | format_price }} / {{ services.mail_receipt.unit }}**  
+□ {{ services.mail_forward.name }} **{{ services.mail_forward.price | format_price }} / {{ services.mail_forward.unit }}**
 
 ---
 
@@ -84,8 +84,9 @@
 　　　　　　年　　　月　　　日
 
 ### お支払い方法 (Payment)
-□ 銀行振り込み (Bank Transfer)  
-□ 口座振替 (Account Transfer)  
+{% for method in payment_methods %}
+□ {{ method.name }} ({{ method.name_en }})  
+{% endfor %}
 
 ---
 
@@ -105,7 +106,7 @@
 
 私は以下の事項に同意します：
 
-□ マルスカフェ バーチャルオフィス会員規約を読み、理解し、同意します  
+□ {{ org.name }} バーチャルオフィス会員規約を読み、理解し、同意します  
 □ 個人情報保護方針を読み、理解し、同意します  
 □ 本申込書に記載した情報は全て真実かつ正確であることを保証します  
 □ 審査の結果、利用をお断りする場合があることを了承します
@@ -130,8 +131,8 @@
 
 ---
 
-**マルスカフェ**  
-〒726-0005 広島県府中市府中町  
-TEL: [電話番号]  
-Email: [メールアドレス]  
-Web: [ウェブサイト]
+**{{ org.name }}**  
+〒{{ org.postal_code }} {{ org.address }}  
+TEL: {{ org.tel }}  
+Email: {{ org.email }}  
+Web: {{ org.website }}
