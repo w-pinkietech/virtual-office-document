@@ -16,6 +16,8 @@ outputs/
 
 # 実際の設定ファイル（サンプルのみ保持）
 settings.yaml
+applicant_data.yaml
+applicants/
 
 # IDE
 .vscode/

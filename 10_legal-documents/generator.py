@@ -2,11 +2,13 @@
 """
 設定駆動型書類生成スクリプト
 settings.yamlから契約書類を自動生成します
+申込者データを含めた書類生成も可能です
 """
 
 import os
 import sys
 import yaml
+import argparse
 from pathlib import Path
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -15,16 +17,23 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 class DocumentGenerator:
     """書類生成クラス"""
     
-    def __init__(self, settings_path='settings.yaml'):
+    def __init__(self, settings_path='settings.yaml', applicant_path=None):
         """
         初期化
         
         Args:
             settings_path: 設定ファイルのパス
+            applicant_path: 申込者データファイルのパス（オプション）
         """
         self.base_dir = Path(__file__).parent
         self.settings_path = self.base_dir / settings_path
         self.settings = self._load_settings()
+        
+        # 申込者データの読み込み（指定された場合）
+        self.applicant_data = None
+        if applicant_path:
+            self.applicant_path = self.base_dir / applicant_path
+            self.applicant_data = self._load_applicant_data()
         
         # Jinja2環境の設定
         self.env = Environment(
@@ -37,6 +46,7 @@ class DocumentGenerator:
         # カスタムフィルターの追加
         self.env.filters['format_price'] = self._format_price
         self.env.filters['format_date'] = self._format_date
+        self.env.filters['format_checkbox'] = self._format_checkbox
         
     def _load_settings(self):
         """設定ファイルを読み込む"""
@@ -49,6 +59,21 @@ class DocumentGenerator:
         except yaml.YAMLError as e:
             print(f"エラー: 設定ファイルの読み込みに失敗しました: {e}")
             sys.exit(1)
+    
+    def _load_applicant_data(self):
+        """申込者データファイルを読み込む"""
+        try:
+            with open(self.applicant_path, 'r', encoding='utf-8') as f:
+                data = yaml.safe_load(f)
+                print(f"✅ 申込者データを読み込みました: {self.applicant_path}")
+                return data
+        except FileNotFoundError:
+            print(f"警告: 申込者データファイル '{self.applicant_path}' が見つかりません。")
+            print("    空の申込書テンプレートを生成します。")
+            return None
+        except yaml.YAMLError as e:
+            print(f"エラー: 申込者データファイルの読み込みに失敗しました: {e}")
+            return None
             
     def _format_price(self, value):
         """価格をフォーマット"""
@@ -59,6 +84,10 @@ class DocumentGenerator:
         if isinstance(value, str):
             return value
         return value.strftime('%Y年%m月%d日')
+    
+    def _format_checkbox(self, checked):
+        """チェックボックスをフォーマット"""
+        return '☑' if checked else '□'
         
     def generate_document(self, document_config):
         """
@@ -89,6 +118,13 @@ class DocumentGenerator:
                 'document_info': self.settings['document_info'],
                 'today': datetime.now(),
             }
+            
+            # 申込者データが存在する場合は追加
+            if self.applicant_data:
+                context['applicant'] = self.applicant_data.get('applicant', {})
+                context['has_applicant_data'] = True
+            else:
+                context['has_applicant_data'] = False
             
             # 書類の生成
             content = template.render(**context)
@@ -158,20 +194,124 @@ class DocumentGenerator:
         return True
 
 
-def main():
-    """メイン処理"""
-    generator = DocumentGenerator()
+def parse_arguments():
+    """コマンドライン引数のパース"""
+    parser = argparse.ArgumentParser(
+        description='設定駆動型書類生成スクリプト',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+使用例:
+  # 空の申込書テンプレートを生成
+  python generator.py
+  
+  # 申込者データを含めた申込書を生成
+  python generator.py --applicant applicant_data.yaml
+  
+  # 複数の申込者データを一括処理
+  python generator.py --applicant-dir applicants/
+        """
+    )
+    
+    parser.add_argument(
+        '--applicant',
+        help='申込者データファイルのパス',
+        type=str,
+        default=None
+    )
+    
+    parser.add_argument(
+        '--applicant-dir',
+        help='申込者データファイルのディレクトリ（一括処理）',
+        type=str,
+        default=None
+    )
+    
+    parser.add_argument(
+        '--settings',
+        help='設定ファイルのパス（デフォルト: settings.yaml）',
+        type=str,
+        default='settings.yaml'
+    )
+    
+    parser.add_argument(
+        '--check',
+        help='テンプレートファイルの存在確認のみ実行',
+        action='store_true'
+    )
+    
+    return parser.parse_args()
+
+
+def process_single_applicant(settings_path, applicant_path=None):
+    """単一の申込者データを処理"""
+    generator = DocumentGenerator(
+        settings_path=settings_path,
+        applicant_path=applicant_path
+    )
     
     # テンプレートの確認
     if not generator.validate_templates():
         print()
         print("テンプレートファイルを作成してから実行してください。")
-        sys.exit(1)
+        return False
         
     print()
     
     # 書類の生成
     generator.generate_all()
+    return True
+
+
+def process_batch_applicants(settings_path, applicant_dir):
+    """複数の申込者データを一括処理"""
+    applicant_dir = Path(applicant_dir)
+    
+    if not applicant_dir.exists():
+        print(f"エラー: ディレクトリ '{applicant_dir}' が存在しません。")
+        return False
+        
+    # YAMLファイルの検索
+    yaml_files = list(applicant_dir.glob('*.yaml')) + list(applicant_dir.glob('*.yml'))
+    
+    if not yaml_files:
+        print(f"警告: ディレクトリ '{applicant_dir}' にYAMLファイルが見つかりません。")
+        return False
+        
+    print(f"📂 {len(yaml_files)}件の申込者データを処理します")
+    print()
+    
+    success_count = 0
+    for yaml_file in yaml_files:
+        print(f"--- 処理中: {yaml_file.name} ---")
+        if process_single_applicant(settings_path, str(yaml_file.relative_to(Path.cwd()))):
+            success_count += 1
+        print()
+        
+    print(f"📊 処理結果: {success_count}/{len(yaml_files)} 件成功")
+    return success_count == len(yaml_files)
+
+
+def main():
+    """メイン処理"""
+    args = parse_arguments()
+    
+    # チェックモード
+    if args.check:
+        generator = DocumentGenerator(settings_path=args.settings)
+        if generator.validate_templates():
+            print("\n✅ すべてのテンプレートファイルが存在します。")
+            sys.exit(0)
+        else:
+            sys.exit(1)
+    
+    # 一括処理モード
+    if args.applicant_dir:
+        success = process_batch_applicants(args.settings, args.applicant_dir)
+        sys.exit(0 if success else 1)
+    
+    # 単一処理モード
+    success = process_single_applicant(args.settings, args.applicant)
+    sys.exit(0 if success else 1)
 
 
 if __name__ == '__main__':
