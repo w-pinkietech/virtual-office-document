@@ -6,13 +6,20 @@
 
 ```
 10_legal-documents/
-├── settings.yaml           # 設定ファイル（組織情報、料金、ルール等）
+├── settings.yaml.sample   # 設定ファイルのサンプル
+├── settings.yaml          # 実際の設定ファイル（.gitignore対象）
 ├── generator.py           # 書類生成スクリプト
+├── requirements.txt       # Pythonパッケージ定義
+├── .gitignore            # Git除外設定
 ├── templates/             # Jinja2テンプレート
 │   ├── application_form.md.j2       # 申込書テンプレート
 │   ├── terms_of_service.md.j2       # 会員規約テンプレート
 │   └── postal_contract_corporate.md.j2  # 郵便サービス契約書テンプレート
-├── current/              # 生成された書類（出力先）
+├── current/              # サンプル書類（変更しない）
+│   ├── バーチャルオフィス申込書.md
+│   ├── 会員規約.md
+│   └── 郵便サービス契約書_法人.md
+├── outputs/              # 生成された書類（.gitignore対象）
 │   ├── バーチャルオフィス申込書.md
 │   ├── 会員規約.md
 │   └── 郵便サービス契約書_法人.md
@@ -75,7 +82,15 @@ exit
 
 ## 🚀 使用方法
 
-### 1. 設定の変更
+### 1. 初期設定
+
+初回実行時は、サンプルから設定ファイルをコピーします：
+
+```bash
+cp settings.yaml.sample settings.yaml
+```
+
+### 2. 設定の変更
 
 `settings.yaml`を編集して、組織情報や料金等を更新します：
 
@@ -90,7 +105,7 @@ services:
     price: 2200  # 料金変更時はここを編集
 ```
 
-### 2. 書類の生成
+### 3. 書類の生成
 
 以下のコマンドで全書類を一括生成：
 
@@ -102,11 +117,13 @@ python generator.py
 実行結果例：
 ```
 📝 書類生成を開始します...
-✅ 生成完了: current/バーチャルオフィス申込書.md
-✅ 生成完了: current/会員規約.md
-✅ 生成完了: current/郵便サービス契約書_法人.md
+✅ 生成完了: outputs/バーチャルオフィス申込書.md
+✅ 生成完了: outputs/会員規約.md
+✅ 生成完了: outputs/郵便サービス契約書_法人.md
 ✨ すべての書類が正常に生成されました。
 ```
+
+**注意**: 生成された書類は`outputs/`フォルダに保存されます。`current/`フォルダのファイルは変更されないサンプルです。
 
 ## 📋 設定項目
 
@@ -151,23 +168,25 @@ documents:
 
 ## 🔍 動作確認
 
-生成された書類は`current/`ディレクトリに保存されます。
+生成された書類は`outputs/`ディレクトリに保存されます。
 以下で内容を確認できます：
 
 ```bash
 # 申込書の確認
-cat current/バーチャルオフィス申込書.md
+cat outputs/バーチャルオフィス申込書.md
 
 # 会員規約の確認
-cat current/会員規約.md
+cat outputs/会員規約.md
 
 # 郵便サービス契約書の確認
-cat current/郵便サービス契約書_法人.md
+cat outputs/郵便サービス契約書_法人.md
 ```
 
 ## 📝 注意事項
 
-- 生成前に既存ファイルは上書きされます
+- `settings.yaml`は`.gitignore`に含まれるため、Gitには追跡されません
+- `outputs/`フォルダも`.gitignore`対象のため、生成物はGitに含まれません
+- `current/`フォルダのファイルはサンプルとして保持され、変更しないでください
 - 電話番号、メールアドレス、ウェブサイトは実際の情報に置き換えてください
 - 料金や条件を変更した場合は必ず再生成してください
 

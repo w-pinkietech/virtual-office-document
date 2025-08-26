@@ -68,7 +68,9 @@ class DocumentGenerator:
             document_config: 書類設定辞書
         """
         template_path = document_config['template']
-        output_path = self.base_dir / document_config['output']
+        # outputsフォルダに出力するよう変更
+        output_filename = Path(document_config['output']).name
+        output_path = self.base_dir / 'outputs' / output_filename
         
         try:
             # テンプレートの読み込み
