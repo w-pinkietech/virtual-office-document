@@ -143,7 +143,11 @@
 ## ご契約情報 (Contract Information)
 
 ### 契約開始日 (Contract Period)
+{% if has_applicant_data and applicant.contract and applicant.contract.start_date -%}
+{{ applicant.contract.start_date }}
+{%- else -%}
 　　　　　　年　　　月　　　日
+{%- endif %}
 
 ### お支払い方法 (Payment)
 {% if has_applicant_data and applicant.payment -%}
@@ -178,10 +182,10 @@
 
 私は以下の事項に同意します：
 
-□ {{ org.name }} バーチャルオフィス会員規約を読み、理解し、同意します  
-□ 個人情報保護方針を読み、理解し、同意します  
-□ 本申込書に記載した情報は全て真実かつ正確であることを保証します  
-□ 審査の結果、利用をお断りする場合があることを了承します
+☑ {{ org.name }} バーチャルオフィス会員規約を読み、理解し、同意します  
+☑ 個人情報保護方針を読み、理解し、同意します  
+☑ 本申込書に記載した情報は全て真実かつ正確であることを保証します  
+☑ 審査の結果、利用をお断りする場合があることを了承します
 
 ---
 
