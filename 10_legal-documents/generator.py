@@ -28,13 +28,13 @@ class DocumentGenerator:
         self.base_dir = Path(__file__).parent
         self.settings_path = self.base_dir / settings_path
         
-        # shop-settings.yamlが存在しない場合、shop-settings.yaml.sampleから作成を促す
+        # 設定ファイルが存在しない場合はサンプルからの作成を促す
         if not self.settings_path.exists():
             sample_path = self.base_dir / 'shop-settings.yaml.sample'
             if sample_path.exists():
-                print(f"エラー: 設定ファイル '{settings_path}' が見つかりません。")
-                print(f"以下のコマンドでサンプルから設定ファイルを作成してください：")
-                print(f"  cp shop-settings.yaml.sample shop-settings.yaml")
+                print(f"エラー: 設定ファイル '{self.settings_path.name}' が見つかりません。", file=sys.stderr)
+                print("以下のコマンドでサンプルから設定ファイルを作成してください：", file=sys.stderr)
+                print(f"  cp {sample_path.name} {self.settings_path.name}", file=sys.stderr)
                 sys.exit(1)
         
         self.settings = self._load_settings()
@@ -64,12 +64,14 @@ class DocumentGenerator:
             with open(self.settings_path, 'r', encoding='utf-8') as f:
                 return yaml.safe_load(f)
         except FileNotFoundError:
-            print(f"エラー: 設定ファイル '{self.settings_path}' が見つかりません。")
-            print(f"以下のコマンドでサンプルから設定ファイルを作成してください：")
-            print(f"  cp shop-settings.yaml.sample shop-settings.yaml")
+            sample_path = self.base_dir / 'shop-settings.yaml.sample'
+            print(f"エラー: 設定ファイル '{self.settings_path.name}' が見つかりません。", file=sys.stderr)
+            if sample_path.exists():
+                print("以下のコマンドでサンプルから設定ファイルを作成してください：", file=sys.stderr)
+                print(f"  cp {sample_path.name} {self.settings_path.name}", file=sys.stderr)
             sys.exit(1)
         except yaml.YAMLError as e:
-            print(f"エラー: 設定ファイルの読み込みに失敗しました: {e}")
+            print(f"エラー: 設定ファイルの読み込みに失敗しました: {e}", file=sys.stderr)
             sys.exit(1)
     
     def _load_applicant_data(self):

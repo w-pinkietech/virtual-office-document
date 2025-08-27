@@ -4,7 +4,7 @@
 
 ## 📁 ディレクトリ構造
 
-```
+```text
 10_legal-documents/
 ├── shop-settings.yaml.sample  # 店舗設定ファイルのサンプル
 ├── shop-settings.yaml     # 実際の店舗設定ファイル（.gitignore対象）
@@ -190,8 +190,10 @@ documents:
   - id: new_document
     title: 新しい書類
     template: templates/new_document.md.j2
-    output: current/新しい書類.md
+    output: outputs/新しい書類.md
 ```
+
+注: 実際の出力先は常に`outputs/`配下に保存されます（設定のパス部分は無視され、ファイル名のみ使用されます）。
 
 3. `python generator.py`を実行
 
@@ -244,8 +246,8 @@ ls -la templates/
 ### エラー: YAMLエラー
 
 ```bash
-# shop-settings.yamlの構文チェック
-python -c "import yaml; yaml.safe_load(open('shop-settings.yaml'))"
+# shop-settings.yamlの構文チェック（UTF-8想定）
+python -c "import yaml; yaml.safe_load(open('shop-settings.yaml', encoding='utf-8'))"
 ```
 
 
