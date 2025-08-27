@@ -15,7 +15,7 @@ pip-delete-this-directory.txt
 outputs/
 
 # 実際の設定ファイル（サンプルのみ保持）
-settings.yaml
+shop-settings.yaml
 applicant_data.yaml
 applicants/
 

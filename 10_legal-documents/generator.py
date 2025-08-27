@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 設定駆動型書類生成スクリプト
-shop-settings.yaml.sampleをsettings.yamlにコピーして使用します
+shop-settings.yamlから契約書類を自動生成します
 申込者データを含めた書類生成も可能です
 """
 
@@ -17,7 +17,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 class DocumentGenerator:
     """書類生成クラス"""
     
-    def __init__(self, settings_path='settings.yaml', applicant_path=None):
+    def __init__(self, settings_path='shop-settings.yaml', applicant_path=None):
         """
         初期化
         
@@ -28,13 +28,13 @@ class DocumentGenerator:
         self.base_dir = Path(__file__).parent
         self.settings_path = self.base_dir / settings_path
         
-        # settings.yamlが存在しない場合、shop-settings.yaml.sampleから作成を促す
+        # shop-settings.yamlが存在しない場合、shop-settings.yaml.sampleから作成を促す
         if not self.settings_path.exists():
             sample_path = self.base_dir / 'shop-settings.yaml.sample'
             if sample_path.exists():
                 print(f"エラー: 設定ファイル '{settings_path}' が見つかりません。")
                 print(f"以下のコマンドでサンプルから設定ファイルを作成してください：")
-                print(f"  cp shop-settings.yaml.sample settings.yaml")
+                print(f"  cp shop-settings.yaml.sample shop-settings.yaml")
                 sys.exit(1)
         
         self.settings = self._load_settings()
@@ -66,7 +66,7 @@ class DocumentGenerator:
         except FileNotFoundError:
             print(f"エラー: 設定ファイル '{self.settings_path}' が見つかりません。")
             print(f"以下のコマンドでサンプルから設定ファイルを作成してください：")
-            print(f"  cp shop-settings.yaml.sample settings.yaml")
+            print(f"  cp shop-settings.yaml.sample shop-settings.yaml")
             sys.exit(1)
         except yaml.YAMLError as e:
             print(f"エラー: 設定ファイルの読み込みに失敗しました: {e}")
@@ -240,9 +240,9 @@ def parse_arguments():
     
     parser.add_argument(
         '--settings',
-        help='設定ファイルのパス（デフォルト: settings.yaml）',
+        help='設定ファイルのパス（デフォルト: shop-settings.yaml）',
         type=str,
-        default='settings.yaml'
+        default='shop-settings.yaml'
     )
     
     parser.add_argument(

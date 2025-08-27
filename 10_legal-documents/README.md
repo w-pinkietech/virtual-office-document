@@ -1,13 +1,13 @@
 # 設定駆動型書類生成システム
 
-バーチャルオフィス契約書類をsettings.yamlから自動生成するシステムです。
+バーチャルオフィス契約書類をshop-settings.yamlから自動生成するシステムです。
 
 ## 📁 ディレクトリ構造
 
 ```
 10_legal-documents/
 ├── shop-settings.yaml.sample  # 店舗設定ファイルのサンプル
-├── settings.yaml          # 実際の設定ファイル（.gitignore対象）
+├── shop-settings.yaml     # 実際の店舗設定ファイル（.gitignore対象）
 ├── applicant_data.yaml.sample  # 申込者データのサンプル
 ├── applicant_data.yaml    # 申込者データ（.gitignore対象）
 ├── generator.py           # 書類生成スクリプト
@@ -91,12 +91,12 @@ exit
 初回実行時は、サンプルから設定ファイルをコピーします：
 
 ```bash
-cp shop-settings.yaml.sample settings.yaml
+cp shop-settings.yaml.sample shop-settings.yaml
 ```
 
 ### 2. 設定の変更
 
-`settings.yaml`を編集して、組織情報や料金等を更新します：
+`shop-settings.yaml`を編集して、組織情報や料金等を更新します：
 
 ```yaml
 organization:
@@ -157,7 +157,7 @@ python generator.py --applicant-dir applicants/
 python generator.py --check
 
 # 設定ファイルを指定
-python generator.py --settings custom_settings.yaml
+python generator.py --settings custom-shop-settings.yaml
 
 # ヘルプの表示
 python generator.py --help
@@ -183,7 +183,7 @@ python generator.py --help
 ### 新しい書類を追加する場合
 
 1. `templates/`に新しいテンプレートを作成
-2. `settings.yaml`の`documents`セクションに追加：
+2. `shop-settings.yaml`の`documents`セクションに追加：
 
 ```yaml
 documents:
@@ -224,7 +224,7 @@ cat outputs/郵便サービス契約書_法人.md
 
 ## 📝 注意事項
 
-- `settings.yaml`は`.gitignore`に含まれるため、Gitには追跡されません
+- `shop-settings.yaml`は`.gitignore`に含まれるため、Gitには追跡されません
 - `applicant_data.yaml`と`applicants/`フォルダも`.gitignore`対象のため、申込者の個人情報は保護されます
 - `outputs/`フォルダも`.gitignore`対象のため、生成物はGitに含まれません
 - `current/`フォルダのファイルはサンプルとして保持され、変更しないでください
@@ -244,8 +244,8 @@ ls -la templates/
 ### エラー: YAMLエラー
 
 ```bash
-# settings.yamlの構文チェック
-python -c "import yaml; yaml.safe_load(open('settings.yaml'))"
+# shop-settings.yamlの構文チェック
+python -c "import yaml; yaml.safe_load(open('shop-settings.yaml'))"
 ```
 
 
