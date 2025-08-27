@@ -251,4 +251,4 @@ python -c "import yaml; yaml.safe_load(open('settings.yaml'))"
 
 ---
 
-最終更新: 2025年8月26日
+最終更新: 2025年8月27日
