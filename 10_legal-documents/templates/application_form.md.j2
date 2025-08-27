@@ -131,11 +131,11 @@
 
 ### **オプション／サービス** (Optional/Service)
 {% if has_applicant_data and applicant.services -%}
-{{ applicant.services.mail_receipt | format_checkbox }} {{ services.mail_receipt.name }} **{{ services.mail_receipt.price | format_price }} / {{ services.mail_receipt.unit }}**  
-{{ applicant.services.mail_forward | format_checkbox }} {{ services.mail_forward.name }} **{{ services.mail_forward.price | format_price }} / {{ services.mail_forward.unit }}**
+{{ applicant.services.mail_receipt | format_checkbox }} {{ services.mail_receipt.name }} ({{ services.mail_receipt.price | format_price }}/{{ services.mail_receipt.unit }})  
+{{ applicant.services.mail_forward | format_checkbox }} {{ services.mail_forward.name }} ({{ services.mail_forward.price | format_price }}/{{ services.mail_forward.unit }})
 {%- else -%}
-□ {{ services.mail_receipt.name }} **{{ services.mail_receipt.price | format_price }} / {{ services.mail_receipt.unit }}**  
-□ {{ services.mail_forward.name }} **{{ services.mail_forward.price | format_price }} / {{ services.mail_forward.unit }}**
+□ {{ services.mail_receipt.name }} ({{ services.mail_receipt.price | format_price }}/{{ services.mail_receipt.unit }})  
+□ {{ services.mail_forward.name }} ({{ services.mail_forward.price | format_price }}/{{ services.mail_forward.unit }})
 {%- endif %}
 
 ---
