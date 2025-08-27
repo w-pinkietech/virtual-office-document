@@ -9,40 +9,35 @@
 ## 契約者情報
 
 {% if has_applicant_data and applicant.application_date -%}
-**契約締結日**: {{ applicant.application_date }}
-{%- else -%}
-**契約締結日**: 　　　　年　　　月　　　日
-{%- endif %}
-
+**契約締結日**: {{ applicant.application_date }}  
+{% else -%}
+**契約締結日**: 　　　　年　　　月　　　日  
+{% endif -%}
 {% if has_applicant_data and applicant.personal -%}
-**氏名**: {{ applicant.personal.name.last }} {{ applicant.personal.name.first }}
-{%- else -%}
-**氏名**: ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
-{%- endif %}
-
+**氏名**: {{ applicant.personal.name.last }} {{ applicant.personal.name.first }}  
+{% else -%}
+**氏名**: ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿  
+{% endif -%}
 {% if has_applicant_data and applicant.corporate and applicant.corporate.company_name -%}
-**法人名・屋号**: {{ applicant.corporate.company_name }}
-{%- else -%}
-**法人名・屋号**: ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
-{%- endif %}
-
+**法人名・屋号**: {{ applicant.corporate.company_name }}  
+{% else -%}
+**法人名・屋号**: ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿  
+{% endif -%}
 {% if has_applicant_data and applicant.address and applicant.address.current -%}
-**法人住所**: 〒{{ applicant.address.current.postal_code }} {{ applicant.address.current.prefecture }}{{ applicant.address.current.city }}{{ applicant.address.current.street }}{% if applicant.address.current.building %} {{ applicant.address.current.building }}{% endif %}
-{%- else -%}
-**法人住所**: ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
-{%- endif %}
-
+**法人住所**: 〒{{ applicant.address.current.postal_code }} {{ applicant.address.current.prefecture }}{{ applicant.address.current.city }}{{ applicant.address.current.street }}{% if applicant.address.current.building %} {{ applicant.address.current.building }}{% endif %}  
+{% else -%}
+**法人住所**: ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿  
+{% endif -%}
 {% if has_applicant_data and applicant.corporate and applicant.corporate.representative -%}
-**犯罪収益移転防止法に基づく実質的支配者**: {{ applicant.corporate.representative.name }}
-{%- else -%}
-**犯罪収益移転防止法に基づく実質的支配者**: ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
-{%- endif %}
-
+**犯罪収益移転防止法に基づく実質的支配者**: {{ applicant.corporate.representative.name }}  
+{% else -%}
+**犯罪収益移転防止法に基づく実質的支配者**: ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿  
+{% endif -%}
 {% if has_applicant_data and applicant.additional and applicant.additional.usage_purpose -%}
 **取引を行う目的**: {{ applicant.additional.usage_purpose }}
-{%- else -%}
+{% else -%}
 **取引を行う目的**: ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
-{%- endif %}
+{% endif %}
 
 ---
 
