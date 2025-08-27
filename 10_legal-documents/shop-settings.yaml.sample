@@ -103,6 +103,41 @@ mail_rules:
     loss_theft: 免責  # 紛失・盗難
     delivery_delay: 免責  # 配送遅延
     damage: 免責  # 破損
+
+# ====================
+# 事務局使用欄
+# ====================
+office_use:
+  application_form:
+    fields:
+      - label: 受付日
+        id: receipt_date
+        format: "＿＿＿＿年＿＿月＿＿日"
+      - label: 受付番号
+        id: receipt_number
+        format: "＿＿＿＿＿＿＿＿＿＿"
+      - label: 審査結果
+        id: review_result
+        format: "□承認 □否認"
+        type: checkbox
+      - label: 審査日
+        id: review_date
+        format: "＿＿＿＿年＿＿月＿＿日"
+      - label: 担当者
+        id: person_in_charge
+        format: "＿＿＿＿＿＿＿＿＿＿＿"
+  
+  postal_contract:
+    fields:
+      - label: 受付日
+        id: receipt_date
+        format: "＿＿＿＿年＿＿月＿＿日"
+      - label: 受付番号
+        id: receipt_number
+        format: "＿＿＿＿＿＿＿＿＿＿"
+      - label: 確認者
+        id: confirmer
+        format: "＿＿＿＿＿＿＿＿＿＿＿"
     
 # ====================
 # 入会資格条件

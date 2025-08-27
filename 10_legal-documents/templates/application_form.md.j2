@@ -207,11 +207,17 @@
 
 ### 【事務局使用欄】
 
+{% if office_use and office_use.application_form and office_use.application_form.fields -%}
+{% for field in office_use.application_form.fields -%}
+{{ field.label }}: {{ field.format }}  
+{% endfor -%}
+{%- else -%}
 受付日: ＿＿＿＿年＿＿月＿＿日  
 受付番号: ＿＿＿＿＿＿＿＿＿＿  
 審査結果: □承認 □否認  
 審査日: ＿＿＿＿年＿＿月＿＿日  
 担当者: ＿＿＿＿＿＿＿＿＿＿＿  
+{%- endif %}  
 
 ---
 

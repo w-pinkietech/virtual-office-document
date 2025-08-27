@@ -130,6 +130,7 @@ class DocumentGenerator:
                 'eligibility': self.settings['eligibility'],
                 'prohibited_actions': self.settings['prohibited_actions'],
                 'document_info': self.settings['document_info'],
+                'office_use': self.settings.get('office_use', None),
                 'today': datetime.now(),
             }
             

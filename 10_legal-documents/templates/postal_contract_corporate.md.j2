@@ -109,9 +109,15 @@
 
 ### 【当社使用欄】
 
+{% if office_use and office_use.postal_contract and office_use.postal_contract.fields -%}
+{% for field in office_use.postal_contract.fields -%}
+{{ field.label }}: {{ field.format }}  
+{% endfor -%}
+{%- else -%}
 受付日: ＿＿＿＿年＿＿月＿＿日  
 受付番号: ＿＿＿＿＿＿＿＿＿＿  
 確認者: ＿＿＿＿＿＿＿＿＿＿＿  
+{%- endif %}  
 
 ---
 
