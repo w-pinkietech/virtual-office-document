@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 設定駆動型書類生成スクリプト
-settings.yamlから契約書類を自動生成します
+shop-settings.yamlから契約書類を自動生成します
 申込者データを含めた書類生成も可能です
 """
 
@@ -17,7 +17,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 class DocumentGenerator:
     """書類生成クラス"""
     
-    def __init__(self, settings_path='settings.yaml', applicant_path=None):
+    def __init__(self, settings_path='shop-settings.yaml', applicant_path=None):
         """
         初期化
         
@@ -27,6 +27,16 @@ class DocumentGenerator:
         """
         self.base_dir = Path(__file__).parent
         self.settings_path = self.base_dir / settings_path
+        
+        # 設定ファイルが存在しない場合はサンプルからの作成を促す
+        if not self.settings_path.exists():
+            sample_path = self.base_dir / 'shop-settings.yaml.sample'
+            if sample_path.exists():
+                print(f"エラー: 設定ファイル '{self.settings_path.name}' が見つかりません。", file=sys.stderr)
+                print("以下のコマンドでサンプルから設定ファイルを作成してください：", file=sys.stderr)
+                print(f"  cp {sample_path.name} {self.settings_path.name}", file=sys.stderr)
+                sys.exit(1)
+        
         self.settings = self._load_settings()
         
         # 申込者データの読み込み（指定された場合）
@@ -54,10 +64,14 @@ class DocumentGenerator:
             with open(self.settings_path, 'r', encoding='utf-8') as f:
                 return yaml.safe_load(f)
         except FileNotFoundError:
-            print(f"エラー: 設定ファイル '{self.settings_path}' が見つかりません。")
+            sample_path = self.base_dir / 'shop-settings.yaml.sample'
+            print(f"エラー: 設定ファイル '{self.settings_path.name}' が見つかりません。", file=sys.stderr)
+            if sample_path.exists():
+                print("以下のコマンドでサンプルから設定ファイルを作成してください：", file=sys.stderr)
+                print(f"  cp {sample_path.name} {self.settings_path.name}", file=sys.stderr)
             sys.exit(1)
         except yaml.YAMLError as e:
-            print(f"エラー: 設定ファイルの読み込みに失敗しました: {e}")
+            print(f"エラー: 設定ファイルの読み込みに失敗しました: {e}", file=sys.stderr)
             sys.exit(1)
     
     def _load_applicant_data(self):
@@ -228,9 +242,9 @@ def parse_arguments():
     
     parser.add_argument(
         '--settings',
-        help='設定ファイルのパス（デフォルト: settings.yaml）',
+        help='設定ファイルのパス（デフォルト: shop-settings.yaml）',
         type=str,
-        default='settings.yaml'
+        default='shop-settings.yaml'
     )
     
     parser.add_argument(
