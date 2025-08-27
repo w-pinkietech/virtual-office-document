@@ -94,16 +94,16 @@
 上記の内容を十分に理解し、同意の上、本契約を締結いたします。
 
 {% if has_applicant_data and applicant.corporate and applicant.corporate.representative -%}
-**契約者（法人代表者）署名**: {{ applicant.corporate.representative.name }}　印
+契約者（法人代表者）署名: {{ applicant.corporate.representative.name }}　印
 
 {% else -%}
-**契約者（法人代表者）署名**: ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿　印
+契約者（法人代表者）署名: ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿　印
 
 {% endif -%}
 {% if has_applicant_data and applicant.application_date -%}
-**日付**: {{ applicant.application_date }}
+日付: {{ applicant.application_date }}
 {%- else -%}
-**日付**: 　　　　年　　　月　　　日
+日付: 　　　　年　　　月　　　日
 {%- endif %}
 
 ---
