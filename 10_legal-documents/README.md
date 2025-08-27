@@ -6,7 +6,7 @@
 
 ```
 10_legal-documents/
-├── settings.yaml.sample   # 設定ファイルのサンプル
+├── shop-settings.yaml.sample  # 店舗設定ファイルのサンプル
 ├── settings.yaml          # 実際の設定ファイル（.gitignore対象）
 ├── applicant_data.yaml.sample  # 申込者データのサンプル
 ├── applicant_data.yaml    # 申込者データ（.gitignore対象）
@@ -91,7 +91,7 @@ exit
 初回実行時は、サンプルから設定ファイルをコピーします：
 
 ```bash
-cp settings.yaml.sample settings.yaml
+cp shop-settings.yaml.sample settings.yaml
 ```
 
 ### 2. 設定の変更

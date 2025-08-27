@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 設定駆動型書類生成スクリプト
-settings.yamlから契約書類を自動生成します
+shop-settings.yaml.sampleをsettings.yamlにコピーして使用します
 申込者データを含めた書類生成も可能です
 """
 
