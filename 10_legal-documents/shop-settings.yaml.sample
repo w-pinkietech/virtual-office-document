@@ -105,39 +105,22 @@ mail_rules:
     damage: 免責  # 破損
 
 # ====================
-# 事務局使用欄
+# 事務局使用欄（データ入力用）
 # ====================
 office_use:
+  # 申込書用の事務局データ
   application_form:
-    fields:
-      - label: 受付日
-        id: receipt_date
-        format: "＿＿＿＿年＿＿月＿＿日"
-      - label: 受付番号
-        id: receipt_number
-        format: "＿＿＿＿＿＿＿＿＿＿"
-      - label: 審査結果
-        id: review_result
-        format: "□承認 □否認"
-        type: checkbox
-      - label: 審査日
-        id: review_date
-        format: "＿＿＿＿年＿＿月＿＿日"
-      - label: 担当者
-        id: person_in_charge
-        format: "＿＿＿＿＿＿＿＿＿＿＿"
+    receipt_date: null  # 受付日（例: 2025年8月27日）
+    receipt_number: null  # 受付番号（例: VO-2025-0001）
+    review_result: null  # 審査結果（approved/denied）
+    review_date: null  # 審査日（例: 2025年8月28日）
+    person_in_charge: null  # 担当者名
   
+  # 郵便契約書用の当社データ
   postal_contract:
-    fields:
-      - label: 受付日
-        id: receipt_date
-        format: "＿＿＿＿年＿＿月＿＿日"
-      - label: 受付番号
-        id: receipt_number
-        format: "＿＿＿＿＿＿＿＿＿＿"
-      - label: 確認者
-        id: confirmer
-        format: "＿＿＿＿＿＿＿＿＿＿＿"
+    receipt_date: null  # 受付日（例: 2025年8月27日）
+    receipt_number: null  # 受付番号（例: PC-2025-0001）
+    confirmer: null  # 確認者名
     
 # ====================
 # 入会資格条件
