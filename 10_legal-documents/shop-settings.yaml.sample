@@ -103,6 +103,24 @@ mail_rules:
     loss_theft: 免責  # 紛失・盗難
     delivery_delay: 免責  # 配送遅延
     damage: 免責  # 破損
+
+# ====================
+# 事務局使用欄（データ入力用）
+# ====================
+office_use:
+  # 申込書用の事務局データ
+  application_form:
+    receipt_date: null  # 受付日（例: 2025年8月27日）
+    receipt_number: null  # 受付番号（例: VO-2025-0001）
+    review_result: null  # 審査結果（approved/denied）
+    review_date: null  # 審査日（例: 2025年8月28日）
+    person_in_charge: null  # 担当者名
+  
+  # 郵便契約書用の当社データ
+  postal_contract:
+    receipt_date: null  # 受付日（例: 2025年8月27日）
+    receipt_number: null  # 受付番号（例: PC-2025-0001）
+    confirmer: null  # 確認者名
     
 # ====================
 # 入会資格条件

@@ -207,11 +207,19 @@
 
 ### 【事務局使用欄】
 
+{% if office_use and office_use.application_form -%}
+受付日: {% if office_use.application_form.receipt_date %}{{ office_use.application_form.receipt_date }}{% else %}＿＿＿＿年＿＿月＿＿日{% endif %}  
+受付番号: {% if office_use.application_form.receipt_number %}{{ office_use.application_form.receipt_number }}{% else %}＿＿＿＿＿＿＿＿＿＿{% endif %}  
+審査結果: {% if office_use.application_form.review_result %}{% if office_use.application_form.review_result == 'approved' %}☑承認 □否認{% elif office_use.application_form.review_result == 'denied' %}□承認 ☑否認{% else %}□承認 □否認{% endif %}{% else %}□承認 □否認{% endif %}  
+審査日: {% if office_use.application_form.review_date %}{{ office_use.application_form.review_date }}{% else %}＿＿＿＿年＿＿月＿＿日{% endif %}  
+担当者: {% if office_use.application_form.person_in_charge %}{{ office_use.application_form.person_in_charge }}{% else %}＿＿＿＿＿＿＿＿＿＿＿{% endif %}  
+{%- else -%}
 受付日: ＿＿＿＿年＿＿月＿＿日  
 受付番号: ＿＿＿＿＿＿＿＿＿＿  
 審査結果: □承認 □否認  
 審査日: ＿＿＿＿年＿＿月＿＿日  
 担当者: ＿＿＿＿＿＿＿＿＿＿＿  
+{%- endif %}  
 
 ---
 

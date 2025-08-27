@@ -109,9 +109,15 @@
 
 ### 【当社使用欄】
 
+{% if office_use and office_use.postal_contract -%}
+受付日: {% if office_use.postal_contract.receipt_date %}{{ office_use.postal_contract.receipt_date }}{% else %}＿＿＿＿年＿＿月＿＿日{% endif %}  
+受付番号: {% if office_use.postal_contract.receipt_number %}{{ office_use.postal_contract.receipt_number }}{% else %}＿＿＿＿＿＿＿＿＿＿{% endif %}  
+確認者: {% if office_use.postal_contract.confirmer %}{{ office_use.postal_contract.confirmer }}{% else %}＿＿＿＿＿＿＿＿＿＿＿{% endif %}  
+{%- else -%}
 受付日: ＿＿＿＿年＿＿月＿＿日  
 受付番号: ＿＿＿＿＿＿＿＿＿＿  
 確認者: ＿＿＿＿＿＿＿＿＿＿＿  
+{%- endif %}  
 
 ---
 
