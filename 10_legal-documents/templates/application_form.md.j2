@@ -11,7 +11,7 @@
 
 ## 申込者情報
 
-### 申請年月日
+### **申請年月日**
 {% if has_applicant_data and applicant.application_date -%}
 {{ applicant.application_date }}
 {%- else -%}
@@ -19,7 +19,7 @@
 *記入例: {{ today.year }}年01月01日*
 {%- endif %}
 
-### 契約タイプ (Contract Type)
+### **契約タイプ** (Contract Type)
 {% if has_applicant_data and applicant.contract_type -%}
 {{ (applicant.contract_type == 'individual') | format_checkbox }} 個人利用  
 {{ (applicant.contract_type == 'corporate') | format_checkbox }} 法人利用
@@ -29,7 +29,7 @@
 *記入例: ☑ 個人利用*
 {%- endif %}
 
-### 氏名 (Last Name / First Name)
+### **氏名** (Last Name / First Name)
 {% if has_applicant_data and applicant.personal -%}
 姓: {{ applicant.personal.name.last }}　名: {{ applicant.personal.name.first }}
 {%- else -%}
@@ -37,7 +37,7 @@
 *記入例: 姓: 山田 名: 太郎*
 {%- endif %}
 
-### 氏名（フリガナ）
+### **氏名（フリガナ）**
 {% if has_applicant_data and applicant.personal -%}
 セイ: {{ applicant.personal.name.last_kana }}　メイ: {{ applicant.personal.name.first_kana }}
 {%- else -%}
@@ -45,7 +45,7 @@
 *記入例: セイ: ヤマダ メイ: タロウ*
 {%- endif %}
 
-### 生年月日 (Birthday)
+### **生年月日** (Birthday)
 {% if has_applicant_data and applicant.personal.birth_date -%}
 {{ applicant.personal.birth_date }}
 {%- else -%}
@@ -53,7 +53,7 @@
 *記入例: 2000年 1月 1日*
 {%- endif %}
 
-### 電話番号 (Tel No.)
+### **電話番号** (Tel No.)
 {% if has_applicant_data and applicant.personal.contact.phone -%}
 {{ applicant.personal.contact.phone }}
 {%- else -%}
@@ -61,7 +61,7 @@
 *記入例: 090-1234-5678*
 {%- endif %}
 
-### メール (Email)
+### **メール** (Email)
 {% if has_applicant_data and applicant.personal.contact.email -%}
 {{ applicant.personal.contact.email }}
 {%- else -%}
@@ -69,7 +69,7 @@
 *記入例: info@example.com*
 {%- endif %}
 
-### 会社名・団体名 (Company/Organization Name)
+### **会社名・団体名** (Company/Organization Name)
 {% if has_applicant_data and applicant.corporate and applicant.corporate.company_name -%}
 {{ applicant.corporate.company_name }}
 {%- else -%}
@@ -77,7 +77,7 @@
 *記入例: 株式会社サンプル*
 {%- endif %}
 
-### 会社名・団体名（フリガナ）
+### **会社名・団体名（フリガナ）**
 {% if has_applicant_data and applicant.corporate and applicant.corporate.company_name_kana -%}
 {{ applicant.corporate.company_name_kana }}
 {%- else -%}
@@ -85,7 +85,7 @@
 *記入例: カブシキガイシャサンプル*
 {%- endif %}
 
-### 事業内容 (Business Details)
+### **事業内容** (Business Details)
 {% if has_applicant_data and applicant.corporate and applicant.corporate.business_description -%}
 {{ applicant.corporate.business_description }}
 {%- else -%}
@@ -94,7 +94,7 @@
 *記入例: Webアプリケーション開発、システムコンサルティング*
 {%- endif %}
 
-### 住所 (Address)
+### **住所** (Address)
 {% if has_applicant_data and applicant.address and applicant.address.current -%}
 郵便番号: 〒{{ applicant.address.current.postal_code }}  
 住所: {{ applicant.address.current.prefecture }}{{ applicant.address.current.city }}{{ applicant.address.current.street }}  
@@ -108,7 +108,7 @@
 *記入例: 郵便番号: 123-4567 住所: 東京都渋谷区渋谷1-2-3*
 {%- endif %}
 
-### 利用目的 (Purpose)
+### **利用目的** (Purpose)
 ※審査に利用いたします。できるだけ詳しくご記入ください。  
 {% if has_applicant_data and applicant.additional and applicant.additional.usage_purpose -%}
 {{ applicant.additional.usage_purpose }}
@@ -122,14 +122,14 @@
 
 ## ご利用サービス (Service Plan)
 
-### バーチャルオフィスサービス (必須)
+### **バーチャルオフィスサービス** (必須)
 {% if has_applicant_data and applicant.services -%}
 {{ applicant.services.virtual_office | format_checkbox }} {{ services.virtual_office.name }}: **{{ services.virtual_office.price | format_price }} / {{ services.virtual_office.unit }}**
 {%- else -%}
 ☑ {{ services.virtual_office.name }}: **{{ services.virtual_office.price | format_price }} / {{ services.virtual_office.unit }}**
 {%- endif %}
 
-### オプション／サービス (Optional/Service)
+### **オプション／サービス** (Optional/Service)
 {% if has_applicant_data and applicant.services -%}
 {{ applicant.services.mail_receipt | format_checkbox }} {{ services.mail_receipt.name }} **{{ services.mail_receipt.price | format_price }} / {{ services.mail_receipt.unit }}**  
 {{ applicant.services.mail_forward | format_checkbox }} {{ services.mail_forward.name }} **{{ services.mail_forward.price | format_price }} / {{ services.mail_forward.unit }}**
@@ -142,14 +142,14 @@
 
 ## ご契約情報 (Contract Information)
 
-### 契約開始日 (Contract Period)
+### **契約開始日** (Contract Period)
 {% if has_applicant_data and applicant.contract and applicant.contract.start_date -%}
 {{ applicant.contract.start_date }}
 {%- else -%}
 　　　　　　年　　　月　　　日
 {%- endif %}
 
-### お支払い方法 (Payment)
+### **お支払い方法** (Payment)
 {% if has_applicant_data and applicant.payment -%}
 {% for method in payment_methods %}
 {{ (method.id == applicant.payment.method) | format_checkbox }} {{ method.name }} ({{ method.name_en }})  
@@ -164,7 +164,7 @@
 
 ## その他
 
-### 請求書送付先
+### **請求書送付先**
 {% if has_applicant_data and applicant.payment and applicant.payment.billing_email -%}
 メールアドレス: {{ applicant.payment.billing_email }}
 {%- else -%}
@@ -205,7 +205,7 @@
 
 ---
 
-### 【事務局使用欄】
+### **【事務局使用欄】**
 
 {% if office_use and office_use.application_form -%}
 受付日: {% if office_use.application_form.receipt_date %}{{ office_use.application_form.receipt_date }}{% else %}＿＿＿＿年＿＿月＿＿日{% endif %}  
