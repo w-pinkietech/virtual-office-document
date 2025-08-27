@@ -27,6 +27,16 @@ class DocumentGenerator:
         """
         self.base_dir = Path(__file__).parent
         self.settings_path = self.base_dir / settings_path
+        
+        # settings.yamlが存在しない場合、shop-settings.yaml.sampleから作成を促す
+        if not self.settings_path.exists():
+            sample_path = self.base_dir / 'shop-settings.yaml.sample'
+            if sample_path.exists():
+                print(f"エラー: 設定ファイル '{settings_path}' が見つかりません。")
+                print(f"以下のコマンドでサンプルから設定ファイルを作成してください：")
+                print(f"  cp shop-settings.yaml.sample settings.yaml")
+                sys.exit(1)
+        
         self.settings = self._load_settings()
         
         # 申込者データの読み込み（指定された場合）
@@ -55,6 +65,8 @@ class DocumentGenerator:
                 return yaml.safe_load(f)
         except FileNotFoundError:
             print(f"エラー: 設定ファイル '{self.settings_path}' が見つかりません。")
+            print(f"以下のコマンドでサンプルから設定ファイルを作成してください：")
+            print(f"  cp shop-settings.yaml.sample settings.yaml")
             sys.exit(1)
         except yaml.YAMLError as e:
             print(f"エラー: 設定ファイルの読み込みに失敗しました: {e}")
